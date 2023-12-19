@@ -1,16 +1,17 @@
-// BasketModal.js
 import React, { useEffect, useState } from "react";
+
 import { IoMdAddCircle, IoMdRemoveCircle } from "react-icons/io";
 import { FaBasketShopping } from "react-icons/fa6";
 import { MdCancel } from "react-icons/md";
+
 import { useSelector } from "react-redux";
 import {
-  selectCart,
   incrementItemInBasket,
   decrementItemInBasket,
-} from "../basket/basketSlice";
+} from "../../features/basket/basketSlice";
 import { useDispatch } from "react-redux";
-import { updateBookList } from "../books/booksSlice";
+
+import { updateBookList } from "../../features/books/booksSlice";
 
 const BasketModal = () => {
   const basket = useSelector((state) => state.basket.cart);
@@ -83,7 +84,7 @@ const BasketModal = () => {
   return (
     <div>
       <button
-        className="flex flex-row gap-5 justify-center items-center bg-transparent text-black border-black border-b-2 font-bold py-2 px-4 hover:bg-slate-500 hover:rounded-md hover:text-white"
+        className="flex flex-row gap-5 justify-center items-center"
         onClick={openModal}
       >
         Basket <FaBasketShopping />
@@ -94,7 +95,7 @@ const BasketModal = () => {
             <span className="close" onClick={closeModal}>
               <MdCancel className="hover:animate-pulse" />
             </span>
-            <div className="flex flex-col">
+            <div className="flex flex-col text-black">
               <h2 className="text-xl font-bold">Your Basket</h2>
               <ul className="p-5">
                 {basket.map((item) => (

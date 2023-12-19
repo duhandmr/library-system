@@ -6,7 +6,7 @@ import * as Yup from "yup";
 
 import { MdCancel } from "react-icons/md";
 
-import { addBook } from "./booksSlice";
+import { addBook } from "../../features/books/booksSlice";
 import BasketModal from "../basket/basketModal";
 
 const AddBook = () => {
@@ -60,14 +60,10 @@ const AddBook = () => {
 
   return (
     <div>
-      <div className="flex justify-center items-center gap-2">
-        <button
-          className="bg-transparent text-black border-black border-b-2 font-bold py-2 px-4 hover:bg-slate-500 hover:rounded-md hover:text-white"
-          onClick={openModal}
-        >
+      <div>
+        <button className="" onClick={openModal}>
           Add Book
         </button>
-        <BasketModal />
       </div>
 
       {isModalOpen && (
@@ -81,7 +77,7 @@ const AddBook = () => {
               validationSchema={validationSchema}
               onSubmit={onSubmit}
             >
-              <Form className="flex flex-col gap-2">
+              <Form className="flex flex-col gap-2 text-black">
                 <Field
                   type="text"
                   name="title"

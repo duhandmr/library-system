@@ -1,12 +1,21 @@
-import Books from "./features/books/Books";
+import Books from "./components/books/Books";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Favorites from "./components/favorites/Favorites";
+import NavBar from "./components/NavBar/NavBar";
 
 function App() {
   return (
-    <div className="lg:container lg:mx-auto px-5 py-5">
-      <div className="flex flex-col gap-5">
-        <Books />
+    <Router>
+      <NavBar />
+      <div>
+        <div className="flex flex-col gap-5">
+          <Routes>
+            <Route path="/" element={<Books />} />
+            <Route path="/favorites" element={<Favorites />} />
+          </Routes>
+        </div>
       </div>
-    </div>
+    </Router>
   );
 }
 
