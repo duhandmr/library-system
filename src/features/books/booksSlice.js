@@ -22,9 +22,20 @@ export const booksSlice = createSlice({
 
       localStorage.setItem("bookList", JSON.stringify(state.bookList));
     },
+    updateBookList: (state, action) => {
+      const { id, stock } = action.payload;
+
+      const updatedBookList = (state.bookList = state.bookList.map((item) =>
+        item.id === id ? { ...item, stock: stock } : item
+      ));
+
+      state.bookList = updatedBookList;
+
+      localStorage.setItem("bookList", JSON.stringify(updatedBookList));
+    },
   },
 });
 
-export const { purchaseBook, addBook } = booksSlice.actions;
+export const { purchaseBook, addBook, updateBookList } = booksSlice.actions;
 
 export default booksSlice.reducer;

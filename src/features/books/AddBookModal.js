@@ -52,6 +52,12 @@ const AddBook = () => {
     setIsModalOpen(false);
   };
 
+  const handleOutsideClick = (e) => {
+    if (e.target === e.currentTarget) {
+      closeModal();
+    }
+  };
+
   return (
     <div>
       <div className="flex justify-center items-center gap-2">
@@ -65,7 +71,7 @@ const AddBook = () => {
       </div>
 
       {isModalOpen && (
-        <div className="modal">
+        <div className="modal" onClick={handleOutsideClick}>
           <div className="modal-content">
             <span className="close" onClick={closeModal}>
               <MdCancel />

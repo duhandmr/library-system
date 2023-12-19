@@ -19,38 +19,33 @@ export const basketSlice = createSlice({
         };
 
         state.cart.push(newItem);
-        localStorage.setItem("cart", JSON.stringify(state.cart));
       } else {
         const existingItem = state.cart.find((item) => item.id === id);
 
         if (existingItem) {
           existingItem.piece += 1;
-          localStorage.setItem("cart", JSON.stringify(state.cart));
         }
       }
+
+      localStorage.setItem("cart", JSON.stringify(state.cart));
     },
     incrementItemInBasket: (state, action) => {
       const { id } = action.payload;
-      const item = state.cart.find((item) => item.id === id);
+      const updatedCart = state.cart.map((item) =>
+        item.id === id ? { ...item, piece: item.piece + 1 } : item
+      );
 
-      if (item) {
-        item.piece += 1;
-        localStorage.setItem("cart", JSON.stringify(state.cart));
-      }
+      state.cart = updatedCart;
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
     },
     decrementItemInBasket: (state, action) => {
       const { id } = action.payload;
-      const item = state.cart.find((item) => item.id === id);
+      const updatedCart = state.cart.map((item) =>
+        item.id === id ? { ...item, piece: Math.max(item.piece - 1, 0) } : item
+      );
 
-      if (item && item.piece > 0) {
-        item.piece -= 1;
-
-        if (item.piece === 0) {
-          state.cart = state.cart.filter((item) => item.id !== id);
-        }
-
-        localStorage.setItem("cart", JSON.stringify(state.cart));
-      }
+      state.cart = updatedCart.filter((item) => item.piece > 0);
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
     },
   },
 });
